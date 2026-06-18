@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# iCloud sync
+.~lock.*
+.fuse_hidden*
+
+# zip atomic-write leftovers
+releases/zi[A-Za-z0-9]*
+
+# Editor
+*.swp
+*~
+.vscode/
+.idea/
