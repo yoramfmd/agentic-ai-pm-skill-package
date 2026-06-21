@@ -87,4 +87,4 @@ You may share and adapt these skills for non-commercial purposes, with attributi
 
 ## Author
 
-[Yoram Friedman](https://www.linkedin.com/in/yoram-friedman/) is a physician and senior product manager who has spent fifteen years building enterprise cloud, data, and platforms at SAP, Walmart, and Microsoft. He trained as a physician in anesthesiology and radiology and writes about healthcare AI, agentic systems, and what it actually takes for AI to move from pilots to production in regulated environments.
+[Yoram Friedman](https://www.linkedin.com/in/yoramf/) is a physician and senior product manager who has spent fifteen years building enterprise cloud, data, and platforms at SAP, Walmart, and Microsoft. He trained as a physician in anesthesiology and radiology and writes about healthcare AI, agentic systems, and what it actually takes for AI to move from pilots to production in regulated environments.
