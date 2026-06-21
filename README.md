@@ -6,7 +6,7 @@ The skills are working aids. The reasoning lives in the four books they referenc
 
 - *Agentic AI for Busy Product Managers* ([Amazon](https://a.co/d/0dCz9Lbx))
 - *Why Agentic AI Products Fail* ([Amazon](https://a.co/d/0cdvAyjn))
-- *The Agentic Team* (draft, online only)
+- *The Agentic AI Team* ([Amazon](https://a.co/d/0jhGrB91))
 - *The Agentic AI Practitioner* (draft, online only)
 
 The skills are designed to be invoked at the moment of need by a senior product manager working on a real agent.
@@ -62,7 +62,7 @@ Skills work independently. A PM whose agent is already in production can invoke 
 
 The package is the first of three planned stages. Two follow:
 
-- **Stage 2 (planned): Team Collaboration.** Five skills built from *The Agentic Team*: the collaboration grid, seam audit, agent-as-team-member onboarding, fleet governance, team skill protection.
+- **Stage 2 (planned): Team Collaboration.** Five skills built from *The Agentic AI Team*: the collaboration grid, seam audit, agent-as-team-member onboarding, fleet governance, team skill protection.
 - **Stage 3 (planned): Practitioner.** Five skills built from *The Agentic AI Practitioner*: proficiency check, model dossier, configuration interview, deliberate-practice loops, first-month on-ramp.
 
 Stage 1 covers the lifecycle. Stages 2 and 3 cover the team that ships it and the individual who must stay competent operating it. They will be released as separate skill bundles in this repo.
