@@ -184,6 +184,14 @@ Walk the PM through three categories of context the agent needs:
 
 **Governance and policy context.** Rules that apply to this decision class, exceptions, override authorities, jurisdictional variations. The agent does not know about the European regulatory exception unless someone wrote it into its retrieval corpus or its policy layer. The agent does not know about the customer's contract amendment unless the contract amendment lives in the system the agent reads from.
 
+**The departed user's context.** The three categories above all assume the context exists somewhere and the agent cannot reach it. There is a fourth source the map is blind to, and it is usually the largest: what a trained person was supplying at runtime that was never written down anywhere.
+
+For twenty years a user story worked because someone stood at the other end of it and completed the specification for free. The support agent knew the refund ceiling. The warehouse manager knew which supplier ships early at quarter close and is not actually late. None of that was in a system, so none of it is lost in transit. It was never digital.
+
+Ask the PM to name the person who does this work today, then walk four questions with them. **Authority:** what were they allowed to decide alone, and where did it stop? A number, not a principle. **Exceptions:** what made them stop and hand the case to someone else? This is the hardest to articulate, because it lived as recognition rather than as a rule, and it is what the agent meets in its first week. **Evidence:** what did they write down, for whom, and how long did it need to survive? **Accountability:** who answered when they got it wrong?
+
+Two things to watch for. If the organization cannot state its own threshold as a number, that is not a context gap to close before launch. It is a finding about the organization, it belongs in the Go-or-No-Go memo, and an agent will not fix it. And the decomposition does not go all the way: some of what that person carries is tacit and resists being written at all. Whatever cannot be encoded is the argument for an approval moment in Design, so record the residue rather than pretending the list is complete.
+
 **Training data availability.** The first-contact mismatch section discussed why the model was trained on resolved cases and will see first contact. The other dimension is whether enough representative resolved cases exist at all. Rare-disease diagnosis, low-frequency fraud patterns, edge regulatory decisions: the agent's reasoning depends on having seen enough analogous resolved cases. Inventory what is available. How many resolved cases of this decision class exist in the org's data. Are they representative of the production distribution. If the answer is "we have 40 cases and most are from one customer segment," the agent will be brittle outside that segment, and the team should know it before committing to build.
 
 Output format:
@@ -204,6 +212,15 @@ Gap: <what is missing>
 Governance context the agent needs:
   - <rule or policy>
 Gap: <what is missing>
+
+Departed-user context (never written down):
+  Person who does this work today: <role>
+  Authority (a number): <threshold>            | Stated by org? Y/N
+  Exceptions that stop the run: <list>
+  Evidence they produced, and its lifetime: <list>
+  Accountable when wrong: <name or ROLE>
+  Tacit residue that cannot be encoded: <list>  -> carry to Design as approval-moment input
+Gap: <what is missing, and what is an organizational finding rather than a build item>
 
 Verdict: SUFFICIENT / INSUFFICIENT pending <named additions>
 Required before launch: <list>
@@ -294,6 +311,8 @@ Verdict: ECONOMICS CLEAR / ECONOMICS DO NOT CLEAR / VOLUME UNCERTAIN
 ### 5. Go-or-No-Go Memo
 
 The memo is the artifact the PM defends in the room. One page. It synthesizes the prior four artifacts into a single recommendation with a single owner. The memo is signed by the PM and circulated. The signature matters; an unsigned go-or-no-go memo is a wish.
+
+One category of finding gets its own line in the memo rather than being folded into the context gap: anything the Context Sufficiency Map surfaced as a rule the organization cannot state. A threshold that exists only in a person's head is not a build item and it does not close before launch. It is a decision the business has never made, and an agent will force it into the open whether or not anyone is ready. Naming it in the memo is how the PM avoids inheriting it by default.
 
 Memo structure:
 
@@ -612,7 +631,7 @@ Run the skill the same way, but mark the artifacts as "reconstructed post-launch
 
 This skill is built from:
 
-Book 1 (*Agentic AI for Busy Product Managers*), Chapter 3 "Not Every Problem Deserves an Agent." The original Discover & Decide foundation.
+Book 1 (*Agentic AI for Busy Product Managers*, 2nd edition), Chapter 4 "Not Every Problem Deserves an Agent." The original Discover & Decide foundation. Chapter 1 "The User Who Left the Room" is the source for the departed-user category in the Context Sufficiency Map.
 
 Book 2 (*Why Agentic AI Products Fail*), Chapter 3 "Not Every Problem Deserves an Agent" (six suitability criteria, brownfield/greenfield, architecture multiplier, Klarna as maturity, MVP House of Cards), Chapter 4 "How the Work Splits" (operating model and the two briefs structure as the downstream artifact).
 

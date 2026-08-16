@@ -570,7 +570,9 @@ Cadence should be documented and visible. A team that does not know when each ar
 
 ## Source
 
-Book 1 (*Agentic AI for Busy Product Managers*), Chapter 9 "Silent Degradation," Chapter 11 "People Who Will Never Be in the Room."
+Book 1 (*Agentic AI for Busy Product Managers*, 2nd edition), Chapter 10 "Silent Degradation," Chapter 12 "What You Owe the People Your Agent Will Never See."
+
+Two adjacent frameworks worth naming when the conversation goes there. The Judgment Gap (#57, Book 1 Chapter 14) is the Supervision Paradox one level up: it is not the validator whose skill erodes, it is that the PM's own judgment was built by friction the tooling now removes. The Sixth Archetype (#55) names the role this whole phase describes, the supervisor who exercises run-time judgment on a shipped thing that keeps deciding.
 
 Book 2 (*Why Agentic AI Products Fail*), Chapter 13 "Silent Degradation" (six drift vectors, substrate drift, instrument half-life, the currency question, external audit on held-out sample), Chapter 14 "Audit Trails That Survive the Agent" (Sealed Decision Artifact, temporal durability, the Lokken pattern), Chapter 20 "What You Owe the People Your Agent Never Sees" (affected-person audit view), Chapter 7 "You Built the Agent. Now Design the Behavior" (Constitutional Runtime Layer, constraint-vs-knowledge).
 

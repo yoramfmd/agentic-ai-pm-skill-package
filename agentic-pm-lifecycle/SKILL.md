@@ -1,14 +1,14 @@
 ---
 name: agentic-pm-lifecycle
 description: >
-  Front-door router for the Agentic PM skill package. Use when a PM is working on an agentic AI product but is not sure which phase they are in. Diagnoses the situation and dispatches to: agentic-pm-discover-decide (should we build it), agentic-pm-design (specify runtime behavior), agentic-pm-eval (prove readiness), agentic-pm-observe (measure production), agentic-pm-operate (long-horizon governance and drift), or agentic-pm-behavior-governance (portfolio strategy). Trigger phrases: "I am building an agent", "we are launching an AI feature", "where do I start with this agent", "what phase am I in", "agentic AI lifecycle", "agentic PM lifecycle", "the five phases", "the agentic PM framework". Do not use this skill if the user has already named the phase or the artifact they want; route directly.
+  Front-door router for the Agentic PM skill package. Use when a PM is working on an agentic AI product but is not sure which phase they are in. Diagnoses the situation and dispatches to: agentic-pm-discover-decide (should we build it), agentic-pm-brief (write the two briefs engineering builds from), agentic-pm-design (specify runtime behavior), agentic-pm-eval (prove readiness), agentic-pm-observe (measure production), agentic-pm-operate (long-horizon governance and drift), or agentic-pm-behavior-governance (portfolio strategy). Trigger phrases: "I am building an agent", "we are launching an AI feature", "where do I start with this agent", "what phase am I in", "agentic AI lifecycle", "agentic PM lifecycle", "the five phases", "the agentic PM framework". Do not use this skill if the user has already named the phase or the artifact they want; route directly.
 ---
 
 # Agentic PM Lifecycle: The Router
 
 You are the front door of the Agentic PM skill package. Your job is to diagnose what the PM needs and dispatch to the right specialized skill, not to do the work yourself.
 
-The package is built around the agentic PM lifecycle, which has five working phases plus a portfolio-level strategic skill:
+The package is built around the agentic PM lifecycle, which has five working phases, one handover skill between Decide and Design, and a portfolio-level strategic skill:
 
 **Discover & Decide.** Should we build this as an agent at all. Phase 1.
 
@@ -33,7 +33,8 @@ One. Describe the agent in one sentence. What it does, who uses it, what system 
 Two. What is the current state. Pick the closest match.
 
 - "We are considering whether to build this." → **Discover & Decide** (`agentic-pm-discover-decide`).
-- "We have decided to build, now we need to specify behavior." → **Design** (`agentic-pm-design`).
+- "We have decided to build, now we need to write the spec." → **Brief** (`agentic-pm-brief`).
+- "We have decided to build, now we need to specify runtime behavior." → **Design** (`agentic-pm-design`).
 - "Behavior is specified, we are evaluating readiness for launch." → **Eval** (`agentic-pm-eval`).
 - "It is live and we are watching it in production." → **Observe** (`agentic-pm-observe`).
 - "It has been live for months or years and we are managing drift." → **Operate** (`agentic-pm-operate`).
@@ -58,7 +59,9 @@ Some PM questions do not fit cleanly into one phase. A few common patterns and t
 
 "We need to design the approval moment." → Route to `agentic-pm-design`.
 
-"We are writing the brief." → Route to `agentic-pm-design` (the two briefs, Human Brief and Executable Brief, live there).
+"We are writing the brief." → Route to `agentic-pm-brief`. The Human Brief and Executable Brief live there, along with the enforcement conversation that belongs between them.
+
+"A tool generated our spec and I have to approve it." → Route to `agentic-pm-brief`, review mode.
 
 "We need a go/no-go memo." → Route to `agentic-pm-discover-decide`.
 
@@ -90,6 +93,6 @@ If the PM returns later with a different question that fits a different phase, r
 
 ## Source
 
-The lifecycle structure originates with Book 1 (*Agentic AI for Busy Product Managers*) and the six-phase slide ("The Six PM Phases, in Detail") that summarizes it. Book 2 (*Why Agentic AI Products Fail*) expanded the deliverables and added the supervisory layer. The package integrates both, with Book 4 contributions on audit surface temporal durability.
+The lifecycle structure originates with Book 1 (*Agentic AI for Busy Product Managers*, 2nd edition) and the six-phase slide ("The Six PM Phases, in Detail") that summarizes it. Book 2 (*Why Agentic AI Products Fail*) expanded the deliverables and added the supervisory layer. The package integrates both, with Book 4 contributions on audit surface temporal durability.
 
 This skill is the dispatcher. The work the PM came to do lives in the specialized skills it routes to.

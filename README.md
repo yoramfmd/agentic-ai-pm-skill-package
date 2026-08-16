@@ -1,10 +1,10 @@
 # Agentic AI PM Skill Package
 
-Stage 1 of a skill package for product managers building agentic AI products in Claude Cowork. Seven skills covering the agentic PM lifecycle, from deciding whether to build through long-horizon governance, plus a portfolio-level strategic skill and a front-door router.
+Stage 1 of a skill package for product managers building agentic AI products in Claude Cowork. Eight skills covering the agentic PM lifecycle, from deciding whether to build through long-horizon governance, plus a portfolio-level strategic skill and a front-door router.
 
 The skills are working aids. The reasoning lives in the four books they reference, all by Yoram Friedman, published at [agenticaiproductmanagement.com](https://agenticaiproductmanagement.com/):
 
-- *Agentic AI for Busy Product Managers* ([Amazon](https://a.co/d/0dCz9Lbx))
+- *Agentic AI for Busy Product Managers*, 2nd edition ([Amazon](https://a.co/d/0dCz9Lbx)) — chapter citations in the skills follow the 2nd edition numbering
 - *Why Agentic AI Products Fail* ([Amazon](https://a.co/d/0cdvAyjn))
 - *The Agentic AI Team* ([Amazon](https://a.co/d/0jhGrB91))
 - *The Agentic AI Practitioner* (draft, online only)
@@ -16,14 +16,15 @@ The skills are designed to be invoked at the moment of need by a senior product 
 | Skill | Phase | What it produces |
 |---|---|---|
 | `agentic-pm-lifecycle` | Router | Diagnoses the PM's situation and dispatches to the right specialized skill |
-| `agentic-pm-discover-decide` | Phase 1 | Suitability record, context sufficiency map, distribution gap analysis, cost model, go-or-no-go memo. Includes a fully worked example for a refund agent. |
+| `agentic-pm-discover-decide` | Phase 1 | Suitability record, context sufficiency map (including the departed user's context: authority, exceptions, evidence, accountability), distribution gap analysis, cost model, go-or-no-go memo. Includes a fully worked example for a refund agent. |
+| `agentic-pm-brief` | Handover | The Human Brief (the document a room argues with), the enforcement conversation with the development manager and architect, and the Executable Brief (numbered FR and GR requirements, acceptance scenarios, eval set, and the gate). Includes a review mode for specs drafted by a generation tool. |
 | `agentic-pm-design` | Phase 2 | Declared system type, four runtime artifacts (autonomy boundary, approval moment, audit surface, recovery workflow), Channel 2 composition, consequence classification, trust scaffold, adversarial defense plan, the two briefs (Human Brief and Executable Brief), Sealed Decision Artifact spec, step-level instrumentation requirement. |
 | `agentic-pm-eval` | Phase 3 | Pass@K with worst-slice variance, compound probability projection, semantic-vs-state validation, coverage statement, adversarial suite, LLM-as-judge calibration, model-version policy, all-owner readiness memo. |
 | `agentic-pm-observe` | Phase 4 | Six observation instruments, data-layer observation, operational guardrails (ceilings, kill switch, circuit breaker, burn-rate), supervised-vs-bypass report, supervisory engagement metrics, deployment-event log, stratified performance report. |
 | `agentic-pm-operate` | Phase 5 | Drift detection (six vectors), Sealed Decision Artifact policy, instrument half-life, constitutional runtime rules, affected-person audit view, adaptive governance rule set, plus authority delegation audit, currency question, external audit on held-out sample. |
 | `agentic-pm-behavior-governance` | Cross-phase | Portfolio maturity assessment, consolidation roadmap, three-stage governance arc (hand-built → control plane → platform primitive). |
 
-Total: ~3,100 lines across seven skills.
+Total: ~3,400 lines across eight skills.
 
 ## Who this is for
 
@@ -35,7 +36,7 @@ If you are an enterprise PM team adopting agentic AI and looking for a shared di
 
 Each skill is a folder containing a single `SKILL.md` file. Cowork installs each one as a `.skill` zip. See the [Releases](https://github.com/yoramfmd/agentic-ai-pm-skill-package/releases) tab for the latest installable zips.
 
-To install all seven:
+To install all eight:
 
 1. Download the latest release archive.
 2. In Cowork, go to Settings > Capabilities > Skills.
@@ -49,6 +50,7 @@ To install one skill at a time, download only the `.skill` zip for that skill.
 Each skill triggers on natural-language phrases described in its `description` block. For example:
 
 - "I need to decide whether to build this as an agent." → `agentic-pm-discover-decide`
+- "I need to turn this into something engineering can build." → `agentic-pm-brief`
 - "We are designing the approval moment for our refund agent." → `agentic-pm-design`
 - "Is the agent ready to ship?" → `agentic-pm-eval`
 - "Our agent has been live for six months; how do we tell if it has drifted?" → `agentic-pm-operate`
@@ -65,7 +67,7 @@ The package is the first of three planned stages. Two follow:
 - **Stage 2 (planned): Team Collaboration.** Five skills built from *The Agentic AI Team*: the collaboration grid, seam audit, agent-as-team-member onboarding, fleet governance, team skill protection.
 - **Stage 3 (planned): Practitioner.** Five skills built from *The Agentic AI Practitioner*: proficiency check, model dossier, configuration interview, deliberate-practice loops, first-month on-ramp.
 
-Stage 1 covers the lifecycle. Stages 2 and 3 cover the team that ships it and the individual who must stay competent operating it. They will be released as separate skill bundles in this repo.
+Stage 1 covers the lifecycle, including the handover from decision to buildable spec. Stages 2 and 3 cover the team that ships it and the individual who must stay competent operating it. They will be released as separate skill bundles in this repo.
 
 ## Source
 

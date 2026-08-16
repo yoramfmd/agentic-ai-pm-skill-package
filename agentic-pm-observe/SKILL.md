@@ -434,10 +434,10 @@ Run the skill as a design exercise. The instruments designed now are the product
 
 ## Source
 
-Book 1 (*Agentic AI for Busy Product Managers*), Chapter 7 "You Can't Measure What You Didn't Design."
+Book 1 (*Agentic AI for Busy Product Managers*, 2nd edition), Chapter 8 "You Can't Measure What You Didn't Design."
 
 Book 2 (*Why Agentic AI Products Fail*), Chapter 10 (operational guardrails: ceilings, kill switch, circuit breaker, burn-rate, the two-agent retry loop composite), Chapter 11 (six instruments, real-time vs retrospective, volume-modeled thresholds, data-layer properties, the procurement composite, stratified performance), Chapter 12 (the Iceberg, data observability detail).
 
 Frameworks #26 (Six Instruments), #30 (Upstream-Data-Wrong Hallucination), #52 (Capability-Based Monitoring).
 
-The complete worked construction of the six instruments lives in Book 1 Chapter 7 and Book 2 Chapter 11. The operational guardrails playbook is in Book 2 Chapter 10. Refer the PM there for the depth.
+The complete worked construction of the six instruments lives in Book 1 Chapter 8 and Book 2 Chapter 11. The operational guardrails playbook is in Book 2 Chapter 10. Refer the PM there for the depth.

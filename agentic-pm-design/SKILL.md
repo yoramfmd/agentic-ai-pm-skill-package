@@ -1,7 +1,7 @@
 ---
 name: agentic-pm-design
 description: >
-  Walk the PM through the Design phase of the agentic PM lifecycle. Used after a GO decision, before engineering builds. Produces the runtime behavior specification: declared system type, four runtime artifacts (autonomy boundary, approval moment, audit surface, recovery workflow), the two briefs (Human + Executable), Channel 2 composition across four dimensions, consequence classification, trust scaffold, adversarial defense plan. Trigger phrases: "design an agentic feature", "design the agent", "approval moment design", "autonomy boundary", "Channel 2 composition", "the two briefs", "Human Brief", "Executable Brief", "design the recovery workflow", "the agent's audit surface", "adversarial defense", "consequence classification", "design the supervisory layer". Also trigger when a PM describes a runtime decision the agent must make and has not designed the surfaces around it.
+  Walk the PM through the Design phase of the agentic PM lifecycle. Used after a GO decision, before engineering builds. Produces the runtime behavior specification: declared system type, four runtime artifacts (autonomy boundary, approval moment, audit surface, recovery workflow), the two briefs (Human + Executable), Channel 2 composition across four dimensions, consequence classification, trust scaffold, adversarial defense plan. The two briefs are produced by agentic-pm-brief, not here. Trigger phrases: "design an agentic feature", "design the agent", "approval moment design", "autonomy boundary", "Channel 2 composition", "design the recovery workflow", "the agent's audit surface", "adversarial defense", "consequence classification", "design the supervisory layer". Also trigger when a PM describes a runtime decision the agent must make and has not designed the surfaces around it.
 ---
 
 # Design: Design the Behavior Before Engineering Begins
@@ -543,40 +543,15 @@ Adversarial test suite (handoff to Phase 3):
   - <test class>
 ```
 
-## The two briefs: a one-page comparator
+## The two briefs live in their own skill
 
-The full worked example of the two briefs lives in Book 2 Appendix A "The Two Briefs, Worked" (also Book 1 Ch 4). As a working aid inside this skill, a one-page comparator showing the same claim in both briefs:
+The two briefs are no longer produced here. `agentic-pm-brief` owns them: the Human Brief, the enforcement conversation with the development manager and the architect, and the Executable Brief with its numbered FR and GR requirements and its gate.
 
-```
-THE CLAIM: "Refunds above $500 require supervisor approval."
+The reason to keep them separate is the seam. This skill decides what the agent does at the moment it acts. The brief skill hands that decision to people who will build it, and the question it has to answer, which this skill does not, is whether each boundary is a rule the agent can be argued out of or a wall the execution path enforces. That call belongs to the architect, and it needs its own conversation.
 
-HUMAN BRIEF (narrative, for the room):
-The refund agent should handle routine refunds without friction but pause
-on larger ones. Five hundred dollars is the line we drew because it is
-above the average customer's refund expectation but below the threshold
-where finance treats the loss as a write-down. The supervisor approval at
-that threshold is the moment we hold the refund decision against the
-customer's account history and the specific damage claim. We argued
-against $250 (too much friction on normal claims) and $1000 (too lax for
-the refund-fraud cases support has been raising). Five hundred is the line.
+What arrives here from the brief: the governance requirements, GR-1 onward, to be turned into the four runtime artifacts. The brief decides what the agent is allowed to do. The runtime makes the boundary real.
 
-EXECUTABLE BRIEF (structured, for tools and engineering):
-{
-  "action_class": "refund.issue",
-  "thresholds": {
-    "auto_approve_max_usd": 500,
-    "supervisor_required_above_usd": 500,
-    "escalate_above_usd": 5000
-  },
-  "approval_moment_id": "refund_supervisor_approval_v1",
-  "audit_required": true,
-  "non_delegable": false
-}
-```
-
-Same claim. Different audience. The Human Brief carries the argument; the Executable Brief is what the agent and the eval pipeline parse. They are derived from one source of truth (the team's decision record), expressed twice.
-
-The most common mistake when transitioning from PRDs to the two-brief model: writing one document that tries to be both. The PRD with narrative paragraphs and JSON blocks inline is unreadable as narrative and broken as spec. The two briefs are two documents because the audiences are two audiences.
+If the PM in front of you is writing the spec rather than designing the runtime, route them to `agentic-pm-brief` before continuing.
 
 ## Returning to the headline question
 
@@ -620,9 +595,15 @@ When the PM is using this skill on a feature in mid-design (no GO decision yet):
 
 Stop and run `agentic-pm-discover-decide` first. Design is not the right phase to discover that the project should not have started.
 
+When the PM has a go decision but nothing written down:
+
+Route to `agentic-pm-brief` first. Runtime design without a brief means the governance requirements are being invented in this conversation rather than agreed with the room, and the enforcement decision has no document to land in.
+
 ## Source
 
-Book 1 (*Agentic AI for Busy Product Managers*), Chapter 4 "The Two Briefs" and Chapter 5 "You Built the Agent. Now Design the Behavior."
+Book 1 (*Agentic AI for Busy Product Managers*, 2nd edition), Chapter 5 "The Two Briefs" and Chapter 6 "You Built the Agent. Now Design the Behavior."
+
+Two framework pointers rather than steps. The Departed User (#56, Book 1 Chapter 1) is found in Discover & Decide, not here; what arrives from that phase is the authority threshold, the exceptions, the evidence requirement, and the tacit residue, and the residue is the strongest argument for where the approval moment goes. The Autonomy Break Point (#58) names where a given boundary stops holding, which is worth stating explicitly when you set the autonomy boundary rather than discovering it in production.
 
 Book 2 (*Why Agentic AI Products Fail*), Chapter 1 (the agent's constitution, values plus constraints, the Spec Kit homonym), Chapter 4 "How the Work Splits" (the two briefs), Chapter 7 "You Built the Agent. Now Design the Behavior" (four runtime artifacts, Enforcement Principle, consequence classification, the five PM-owned security decisions, Horvitz, irreversibility, async, mid-execution reachability), Chapter 14 "Audit Trails That Survive the Agent" (Sealed Decision Artifact, temporal durability).
 
@@ -630,4 +611,4 @@ Book 4, Chapter 14 (audit surface temporal durability).
 
 Frameworks #11 (Four Design Artifacts), #20 (Constitutional Runtime Layer), #22 (Supervisory System), #24 (Two-Channel Agentic Design).
 
-The two briefs (Human Brief and Executable Brief) are a substantial design artifact in their own right; the full worked treatment lives in Book 2 Appendix A "The Two Briefs, Worked" and Book 1 Chapter 4 "The Two Briefs." Refer the PM there for the depth.
+The two briefs (Human Brief and Executable Brief) are a substantial design artifact in their own right; the full worked treatment lives in Book 2 Appendix A "The Two Briefs, Worked" and Book 1 Chapter 5 "The Two Briefs." Refer the PM there for the depth.

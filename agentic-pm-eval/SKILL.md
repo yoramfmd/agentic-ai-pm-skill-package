@@ -504,7 +504,7 @@ Run the skill anyway, with the artifacts marked "reconstructed post-launch." The
 
 ## Source
 
-Book 1 (*Agentic AI for Busy Product Managers*), Chapter 6 "Evals: What the Checkmarks Actually Prove."
+Book 1 (*Agentic AI for Busy Product Managers*, 2nd edition), Chapter 7 "Evals: What the Checkmarks Actually Prove."
 
 Book 2 (*Why Agentic AI Products Fail*), Chapter 9 "Evals: What the Checkmarks Prove" (Pass@K, worst-slice P10, judge calibration, model-version policy, the DAX wrong-target case), Chapter 11 "You Can't Measure What You Didn't Design" (the procurement composite, semantic-vs-state in operation), Appendix B "The Field Manual" (the all-owner readiness memo as a working artifact).
 
@@ -512,4 +512,4 @@ The Four-Question Pre-Launch Review with named owners is framework #31; the oper
 
 Frameworks #25 (Three Eval Breaks), #30 (Upstream-Data-Wrong Hallucination), #31 (Four-Question Pre-Launch Review), #42 (Validator-of-Validator Regress).
 
-The full treatment of trajectory eval, judge calibration, and golden dataset construction lives in Book 2 Chapter 9 and Book 1 Chapter 6. Refer the PM there when they need to go deeper on a specific technique.
+The full treatment of trajectory eval, judge calibration, and golden dataset construction lives in Book 2 Chapter 9 and Book 1 Chapter 7. Refer the PM there when they need to go deeper on a specific technique.
