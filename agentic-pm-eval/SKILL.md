@@ -1,7 +1,7 @@
 ---
 name: agentic-pm-eval
 description: >
-  Walk the PM through the Eval phase of the agentic PM lifecycle. Used after Design, before launch. Replaces the single pass-fail eval gate with distribution and state-validation discipline. Produces: Pass@K with worst-slice variance, compound probability projection, semantic-vs-state validation, coverage statement with deferred scenarios named, adversarial suite results, LLM-as-judge calibration, model-version policy with rehearsed rollback, all-owner readiness memo. Trigger phrases: "eval an agentic feature", "design the eval suite", "Pass@K", "compound probability", "semantic vs state validation", "coverage statement", "judge calibration", "LLM-as-judge", "is the agent ready to ship", "all-owner readiness", "pre-launch review", "adversarial suite", "acceptable failure". Also trigger when the team is debating whether the existing eval results justify shipping.
+  Walk the PM through the Eval phase of the agentic PM lifecycle. Used after Design, before launch. Replaces the single pass-fail eval gate with distribution and state-validation discipline. Produces: pass rate with worst-slice variance and pass^k as the reliability gate, compound probability projection, semantic-vs-state validation, coverage statement with deferred scenarios named, adversarial suite results, LLM-as-judge calibration, model-version policy with rehearsed rollback, all-owner readiness memo. Trigger phrases: "eval an agentic feature", "design the eval suite", "Pass@K", "pass^k", "pass rate", "compound probability", "semantic vs state validation", "coverage statement", "judge calibration", "LLM-as-judge", "is the agent ready to ship", "all-owner readiness", "pre-launch review", "adversarial suite", "acceptable failure". Also trigger when the team is debating whether the existing eval results justify shipping.
 ---
 
 # Eval: Prove Readiness Through Evidence
@@ -56,7 +56,7 @@ Three. Who has to sign off on launch, and what would each of them need to see. T
 
 These three open the eval conversation. The artifacts below produce the evidence.
 
-Sizing and time cost. The first agentic eval suite, end to end, is typically 2 to 4 weeks of focused work for the PM plus engineering plus a domain expert. Subsequent re-evals (on model update, scope change, or scheduled cadence) are days, not weeks, because the suite already exists. Under deadline, produce the three load-bearing artifacts first (the golden dataset and Pass@K with worst-slice variance, the semantic-vs-state validation for any agent that touches a system of record, the all-owner readiness memo with named signatures). Log the compound probability projection, the LLM-as-judge calibration, the adversarial suite, and the coverage statement as named debt to be addressed in the first 30 days post-launch.
+Sizing and time cost. The first agentic eval suite, end to end, is typically 2 to 4 weeks of focused work for the PM plus engineering plus a domain expert. Subsequent re-evals (on model update, scope change, or scheduled cadence) are days, not weeks, because the suite already exists. Under deadline, produce the three load-bearing artifacts first (the golden dataset, the pass rate with worst-slice variance and pass^k, the semantic-vs-state validation for any agent that touches a system of record, the all-owner readiness memo with named signatures). Log the compound probability projection, the LLM-as-judge calibration, the adversarial suite, and the coverage statement as named debt to be addressed in the first 30 days post-launch.
 
 A handoff back to Design. If the agent's design did not include step-level instrumentation (Design's "Step-level instrumentation requirement"), the compound probability projection is informational, not measured. Surface this gap to Design before launch rather than at the eval gate; it is a Design omission, not an eval limitation.
 
@@ -96,15 +96,25 @@ The most common first-timer trap, in case you read nothing else in this section:
 
 **Building the golden dataset from cases the agent already handles well.** This produces an eval that passes confidently and misses the production failures. The counter-rule: weight the golden dataset toward cases that look hard, ambiguous, or adversarial. The dataset has to be uncomfortable to pass. If the team is reporting "we got 98 percent on the golden set" easily on the first run, the dataset is broken, not the agent good.
 
-### Pass@K and worst-slice variance
+### Three metrics, one set of runs
 
 In classical product work, a metric reads a single number. The conversion rate is 4.2 percent. The latency is 320ms. One run, one result.
 
-In agentic work, the model is probabilistic. One run is one sample from a distribution. Reporting a single-run number is reporting a single roll of a die and calling it the property of the die. Pass@K is the discipline of running the eval K times and reporting the distribution. K of 5 to 10 for routine evals, 20 to 50 for high-stakes decisions.
+In agentic work the model is probabilistic, so one run is one sample from a distribution. Reporting a single-run number is reporting a single roll of a die and calling it a property of the die. So you run the eval repeatedly. What you do with those runs is where teams go wrong, because three different numbers can be computed from them, they answer three different questions, and two of them share a name closely enough that teams routinely report one while believing they have the other.
 
-The single number that matters from a Pass@K run is not the mean. It is the worst slice. The tenth percentile, P10, is the agent's behavior on the bottom decile of runs. Hard cases concentrate there; they do not spread evenly. A mean of 95 percent with a P10 of 60 percent tells you the agent will fail badly one run in ten, on the cases that already concentrate the failures.
+Run one eval ten times on a system that succeeds eighty percent of the time.
 
-When you read a Pass@K result, the question is: is the worst slice acceptable. Not the mean. The worst slice.
+**pass@k** asks whether at least one of the ten attempts succeeded. Here that is near certainty. It comes from code generation (Chen et al., arXiv:2107.03374), where a developer generates several candidates, reads them, and keeps the best one. In that setting it measures something real. As a gate on an agent that acts without review it measures almost nothing, because it improves every time you allow another attempt, and because nobody is standing there picking the good run out of the ten. If a vendor quotes pass@k for an autonomous system, that is the number to ask about.
+
+**The pass rate** asks how often it succeeded, and how bad the bad ones were. Here it is eighty percent, with a median and a worst slice worth reporting separately. This is the honest description of a distribution, and it is what most teams are actually computing when they say pass@k. Report P50 and P10 **across cases**, not across runs, because a gate owner is asking which cases fail rather than which attempts did. A P50 of 95 percent with a P10 of 60 percent says the agent fails badly on the bottom decile of cases, which is where the hard ones concentrate.
+
+**pass^k**, written with a caret, asks whether all k attempts succeeded. Here that is about eleven percent. This is the reliability question, and for anything acting on its own it is the one that matters, because a system a user meets repeatedly will meet its failure eventually. τ-bench introduced it for exactly this reason (Yao et al., arXiv:2406.12045), and the result was sobering: agents succeeding on under half of tasks overall held up on under a quarter of retail tasks when required to succeed eight times running.
+
+Near-certainty, eighty percent, eleven percent. Same runs, three numbers, and only one of them answers the question an autonomy decision is asking.
+
+So report the pass rate with its worst slice for a picture of behavior, report pass^k for the gate, and use pass@k only where a human genuinely picks among candidates. Run at least ten times; fewer will not separate a real distribution from noise. And say the denominator out loud every time, because P50 across runs and P50 across cases are different claims and the label does not distinguish them.
+
+**Never write "pass@k, the rate."** That construction is the error this section exists to correct.
 
 ### Compound probability across a trajectory
 
@@ -158,11 +168,13 @@ The PM-level point: for any action the agent takes that should produce a state c
 
 Eval produces seven named deliverables. The deliverables are not a checklist; they are layered tests that together answer the headline question.
 
-### 1. Pass@K with Worst-Slice Variance
+### 1. Pass Rate with Worst Slice, and pass^k
 
-Single-run eval results are not results for probabilistic systems. Run each eval case K times (K of 5 to 10 is typical for a thorough run; K of 20 to 50 for high-stakes decisions). Report the distribution.
+Single-run eval results are not results for probabilistic systems. Run each eval case K times and report both the distribution and the reliability figure. K of ten is the floor; K of twenty to fifty for high-stakes decisions.
 
-Choose K from the confidence-interval requirement, not from intuition. K = 5 cannot resolve a P10 (you only have five samples); the worst single run is roughly a P20. K = 10 gives a noisy P10. K = 20 to 50 gives a P10 with reasonable confidence. K = 100 is the standard for regulatory-grade evals on high-stakes classes. Ask: "What is the acceptable confidence interval on P10, and what K does that require for this eval class." If the team is reporting a P10 from K = 5, they are reporting a number whose error bars cover most of the meaningful range.
+Two numbers come out, and the deliverable is incomplete with either one missing. The **pass rate** with its worst slice describes behavior. **pass^k**, the share of cases that succeeded on every one of the K runs, is the gate. A team that reports only the first has described a system without deciding anything about it.
+
+Choose K from the confidence-interval requirement, not from intuition. K = 5 cannot resolve a P10 at all (five samples means the worst run is roughly a P20), which is why ten is the floor rather than a suggestion. K = 10 gives a noisy P10. K = 20 to 50 gives a P10 with reasonable confidence. K = 100 is the standard for regulatory-grade evals on high-stakes classes. Ask: "What is the acceptable confidence interval on P10, and what K does that require for this eval class." If the team is reporting a P10 from K = 5, they are reporting a number whose error bars cover most of the meaningful range.
 
 The sharpening from Book 2 Ch 9: the variance line that matters is not the mean ± standard deviation. It is the worst slice.
 
@@ -184,14 +196,19 @@ Whether the variance is concentrated in named case classes (e.g., "the worst sli
 Output format:
 
 ```
-PASS@K WITH VARIANCE: <agent name> <eval class>
+PASS RATE AND RELIABILITY: <agent name> <eval class>
 
 K = <number>, justified by <decision class consequence>
+Denominator for percentiles: ACROSS CASES / ACROSS RUNS  (state which)
 
 Mean pass rate: <X>%
 P50: <X>%
-P10 (worst-slice): <X>%
+P10 (worst slice): <X>%
 Worst single run: <X>%
+
+pass^K (share of cases succeeding on all K runs): <X>%   <- the gate
+pass@K is not reported here. It answers "did it ever work," which is
+not the question an autonomy decision asks.
 
 Variance concentration:
   Cases that consistently appear in the worst slice:

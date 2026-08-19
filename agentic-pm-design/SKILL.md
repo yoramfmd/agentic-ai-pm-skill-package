@@ -585,7 +585,7 @@ When you produce the six artifacts, refer back to the failure modes. Each artifa
 
 When the Design phase is complete:
 
-Hand off to `agentic-pm-eval` to produce the readiness artifacts (Pass@K with variance, coverage statement, all-owner readiness memo). The Design artifacts feed the eval artifacts directly.
+Hand off to `agentic-pm-eval` to produce the readiness artifacts (pass rate with worst slice, pass^k as the gate, coverage statement, all-owner readiness memo). The Design artifacts feed the eval artifacts directly.
 
 When the team has shipped without doing this phase and you are reconstructing:
 
